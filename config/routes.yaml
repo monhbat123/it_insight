@@ -1,0 +1,10 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+dashboard:
+    path: /admin
+    controller: App\Controller\Admin\DashboardController::index
+add_product:
+    path: /api/v1/products
+    controller: App\Controller\ProductController:indexAction
+    methods: ["GET"]
