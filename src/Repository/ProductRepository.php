@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * @method Product|null find($id, $lockMode = null, $lockVersion = null)
@@ -23,25 +25,29 @@ class ProductRepository extends ServiceEntityRepository
     //  * @return Product[] Returns an array of Product objects
     //  */
 
-    public function getAvailableProducts()
+    public function getAvailableProducts($currentPage, $limit)
     {
-        return $this->createQueryBuilder('a')
-            ->innerJoin('a.Category', 'b')
-            ->select('a.id', 'a.name', 'a.description', 'b.name')
-            ->getQuery()
-            ->getResult();
+        $query = $this->createQueryBuilder('a')
+            ->select('a.id', 'a.name', 'a.nameEn', 'a.description', 'a.descriptionEn', 'a.imageUrl', 'cat.id AS category_id', 'subcat.id AS sub_category_id', 'brand.id AS brand_id')
+            ->andWhere('a.available = :isAvailable')
+            ->setParameter('isAvailable', true)
+            ->innerJoin('a.Category', 'cat')
+            ->innerJoin('a.Brand', 'brand')
+            ->innerJoin('a.SubCategory', 'subcat')
+            ->getQuery();
+        $paginator = $this->paginate($query, $currentPage, $limit);
+
+        return $paginator;
     }
-
-
-    /*
-    public function findOneBySomeField($value): ?Product
+    public function paginate($dql, $page, $limit)
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $paginator = new Paginator($dql);
+        $paginator->setUseOutputWalkers(false);
+
+        $paginator->getQuery()
+            ->setFirstResult($limit * ($page - 1))
+            ->setMaxResults($limit);
+
+        return $paginator;
     }
-    */
 }

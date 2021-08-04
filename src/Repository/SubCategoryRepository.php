@@ -22,19 +22,18 @@ class SubCategoryRepository extends ServiceEntityRepository
     // /**
     //  * @return SubCategory[] Returns an array of SubCategory objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findSubCategoryById($value)
     {
         return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
+            ->select('s.id', 's.name', 's.nameEn', 's.description', 's.descriptionEn', 's.imageUrl',)
+            ->where('s.id = :val')
             ->setParameter('val', $value)
             ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?SubCategory

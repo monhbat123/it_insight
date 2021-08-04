@@ -13,6 +13,7 @@ security:
                 class: App\Entity\User
                 property: email
     firewalls:
+
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
@@ -36,5 +37,9 @@ security:
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/v1/category, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/v1/products, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/v1/news, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/v1/subcategory, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/v1/brand, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: IS_AUTHENTICATED_FULLY }

@@ -4,7 +4,23 @@
 dashboard:
     path: /admin
     controller: App\Controller\Admin\DashboardController::index
-add_product:
-    path: /api/v1/products
+product_list:
+    path: /api/v1/products/{currentPage}/{limit}
     controller: App\Controller\ProductController:indexAction
+    methods: ["POST"]
+news_list:
+    path: /api/v1/news
+    controller: App\Controller\NewsController:indexAction
     methods: ["GET"]
+category_find:
+    path: /api/v1/category/{id}
+    controller: App\Controller\CategoryController:indexAction
+    methods: ["POST"]
+category_brand:
+    path: /api/v1/brand/{id}
+    controller: App\Controller\BrandController:indexAction
+    methods: ["POST"]
+sub_category_brand:
+    path: /api/v1/subcategory/{id}
+    controller: App\Controller\SubCategoryController:indexAction
+    methods: ["POST"]

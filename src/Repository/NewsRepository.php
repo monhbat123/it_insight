@@ -19,6 +19,14 @@ class NewsRepository extends ServiceEntityRepository
         parent::__construct($registry, News::class);
     }
 
+
+    public function getPublishedPosts()
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a.id', 'a.title', 'a.post', 'a.imageUrl')
+            ->getQuery()
+            ->getResult();
+    }
     // /**
     //  * @return News[] Returns an array of News objects
     //  */

@@ -22,19 +22,18 @@ class BrandRepository extends ServiceEntityRepository
     // /**
     //  * @return Brand[] Returns an array of Brand objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findByBrandId($value)
     {
         return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
+            ->select('b.id', 'b.name', 'b.nameEn', 'b.description', 'b.descriptionEn', 'b.imageUrl')
+            ->where('b.id = :val')
             ->setParameter('val', $value)
             ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Brand
